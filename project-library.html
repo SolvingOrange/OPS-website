@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Library — Orange Production Solutions</title>
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg-color: #050505;
+    --bg-surface: #111111;
+    --text-main: #fcfcfc;
+    --text-muted: #a3a3a3;
+    --text-dim: #8c8c8c;
+    --border-color: #2a2a2a;
+    --accent: #E55825;
+    --accent-hover: #cc4a1d;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Roboto', -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    margin: 0 0 1rem 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+}
+
+h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.2rem; }
+
+p { color: var(--text-muted); max-width: 65ch; }
+
+a { color: inherit; }
+
+.mono { font-family: 'Roboto Mono', monospace; }
+
+.navbar {
+    padding: 26px 6%;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand { font-weight: 900; font-size: 1.1rem; text-decoration: none; }
+
+.container { max-width: 1000px; margin: 0 auto; padding: 80px 6%; }
+
+.gate-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 36px;
+    margin-bottom: 60px;
+}
+
+.gate-box input {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 14px 16px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    max-width: 320px;
+    margin-right: 12px;
+}
+
+.gate-box button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.gate-box button:hover { background: var(--accent-hover); }
+
+#gate-error {
+    color: var(--accent);
+    font-size: 0.875rem;
+    margin-top: 12px;
+    display: none;
+}
+
+.project-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 36px;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.credit-line {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-top: -6px;
+    margin-bottom: 16px;
+}
+
+.locked-content {
+    filter: blur(5px);
+    user-select: none;
+    pointer-events: none;
+    transition: filter 0.3s;
+}
+
+.unlocked .locked-content {
+    filter: none;
+    user-select: auto;
+    pointer-events: auto;
+}
+
+.lock-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(5,5,5,0.35);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-main);
+    letter-spacing: 0.03em;
+}
+
+.unlocked .lock-overlay { display: none; }
+
+.placeholder-flag {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="brand">← Orange Production Solutions</a>
+</nav>
+
+<div class="container">
+    <span class="mono" style="font-size:0.75rem; color:var(--accent); text-transform:uppercase; letter-spacing:0.08em;">Project Library</span>
+    <h1>The Full Record.</h1>
+    <p>
+        Every project here is credited honestly — the prime contractor named, OPS's actual
+        role stated plainly. Full detail is limited to those who request access.
+    </p>
+
+    <div class="gate-box">
+        <h3 style="margin-bottom:16px;">Enter Access Code</h3>
+        <input type="password" id="gate-password" placeholder="Access code">
+        <button onclick="unlockLibrary()">Unlock</button>
+        <div id="gate-error">Incorrect code. Contact OPS for access.</div>
+    </div>
+
+    <div id="library-wrapper">
+
+        <!-- F1 Miami Grand Prix -->
+        <div class="project-card">
+            <span class="mono" style="font-size:0.7rem; color:var(--text-dim); text-transform:uppercase;">Motorsport</span>
+            <h2 style="margin-top:10px;">F1 Miami Grand Prix</h2>
+            <p class="credit-line">Prime Contractor: Joint Proposal (OPS + Partner Firm) · OPS Role: Co-Author, Overlay & Architectural Services</p>
+            <div class="locked-content">
+                <p>
+                    OPS was invited to submit a joint Event Overlay / Architectural Services
+                    proposal for the Formula 1 Crypto.com Miami Grand Prix at Hard Rock Stadium,
+                    after F1 approached OPS directly. OPS brought on a global project delivery
+                    partner to co-author the submission.
+                </p>
+                <p style="color:var(--text-main); font-weight:500;">
+                    Status: Submitted, not selected. Included here as evidence of the tier of
+                    engagement OPS is invited into — not a delivered outcome.
+                </p>
+                <span class="placeholder-flag">PLACEHOLDER — pending final copy approval</span>
+            </div>
+            <div class="lock-overlay">🔒 Enter access code above to view full record</div>
+        </div>
+
+        <!-- NCAA Final Four -->
+        <div class="project-card">
+            <span class="mono" style="font-size:0.7rem; color:var(--text-dim); text-transform:uppercase;">Basketball</span>
+            <h2 style="margin-top:10px;">NCAA Final Four — Houston, 2016</h2>
+            <p class="credit-line">Prime Contractor: Colonnade · OPS Role: Subcontractor</p>
+            <div class="locked-content">
+                <p>
+                    OPS supported infrastructure delivery for the 2016 NCAA Final Four as a
+                    subcontractor to Colonnade, contributing technical execution to one of
+                    college basketball's largest annual events.
+                </p>
+                <span class="placeholder-flag">PLACEHOLDER — pending final copy approval</span>
+            </div>
+            <div class="lock-overlay">🔒 Enter access code above to view full record</div>
+        </div>
+
+        <!-- FIFA World Cup 26 -->
+        <div class="project-card">
+            <span class="mono" style="font-size:0.7rem; color:var(--text-dim); text-transform:uppercase;">Soccer</span>
+            <h2 style="margin-top:10px;">FIFA World Cup 26</h2>
+            <p class="credit-line">Prime Contractor: N/A (Personnel Placement) · OPS Role: Systems foundation behind Jake Cone's direct engagement</p>
+            <div class="locked-content">
+                <p>
+                    FIFA brought founder Jake Cone onto the delivery team overseeing planning
+                    and delivery across 5 of the tournament's 17 venues. OPS's methodology and
+                    delivery systems — built over a decade of FEI, equestrian, and motorsport
+                    overlay work — provided the foundation that shaped how this engagement was
+                    won and executed.
+                </p>
+                <p style="color:var(--text-main); font-weight:500;">
+                    Note: This was a direct personnel engagement between FIFA and Jake Cone, not
+                    a contracted scope held by OPS. Included here transparently, with role
+                    stated precisely.
+                </p>
+                <span class="placeholder-flag">PLACEHOLDER — pending final copy approval</span>
+            </div>
+            <div class="lock-overlay">🔒 Enter access code above to view full record</div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// Soft gate — client-side only, intended to control casual access, not a real security barrier
+const ACCESS_CODE = "opsinsider";
+
+function unlockLibrary() {
+    const input = document.getElementById('gate-password').value.trim().toLowerCase();
+    const error = document.getElementById('gate-error');
+    const wrapper = document.getElementById('library-wrapper');
+
+    if (input === ACCESS_CODE) {
+        wrapper.classList.add('unlocked');
+        error.style.display = 'none';
+    } else {
+        error.style.display = 'block';
+    }
+}
+
+document.getElementById('gate-password').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') unlockLibrary();
+});
+</script>
+
+</body>
+</html>
