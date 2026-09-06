@@ -94,6 +94,32 @@ a { color: inherit; }
 
 @media (max-width: 860px) {
     .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .about-graphic { display: none; }
+}
+
+/* Methodology section: side-by-side on desktop, interleaved pairs on mobile */
+.methodology-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    column-gap: 64px;
+}
+
+.m-heading-left  { grid-column: 1; grid-row: 1; }
+.m-heading-right { grid-column: 2; grid-row: 1; }
+.m-problem-1  { grid-column: 1; grid-row: 2; }
+.m-solution-1 { grid-column: 2; grid-row: 2; }
+.m-problem-2  { grid-column: 1; grid-row: 3; }
+.m-solution-2 { grid-column: 2; grid-row: 3; }
+.m-problem-3  { grid-column: 1; grid-row: 4; }
+.m-solution-3 { grid-column: 2; grid-row: 4; }
+
+@media (max-width: 860px) {
+    .methodology-grid { grid-template-columns: 1fr; }
+    .methodology-grid > div {
+        grid-column: 1;
+        grid-row: auto;
+    }
+    .m-heading-left { display: none; }
 }
 
 /* Corner bracket signature */
@@ -130,17 +156,20 @@ a { color: inherit; }
 }
 
 /* Nav */
+.nav-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
 .navbar {
     padding: 26px 6%;
     border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
     background: rgba(5,5,5,0.85);
     backdrop-filter: blur(10px);
-    z-index: 10;
 }
 
 .brand {
@@ -182,6 +211,56 @@ a { color: inherit; }
     .nav-links { display: none; }
 }
 
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 28px;
+    height: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--text-main);
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: var(--bg-main);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.mobile-menu.open { display: flex; }
+
+.mobile-menu a {
+    padding: 16px 6%;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border-top: 1px solid var(--border-color);
+}
+
+.mobile-menu a:first-child { border-top: none; }
+.mobile-menu a:hover { color: var(--text-main); }
+
+@media (max-width: 640px) {
+    .nav-toggle { display: flex; }
+}
+
 /* Buttons */
 .btn {
     display: inline-block;
@@ -215,6 +294,18 @@ a { color: inherit; }
     padding: 36px;
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
+}
+
+a.card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+a.card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
 }
 
 .card h3 { color: var(--text-main); }
@@ -388,6 +479,7 @@ footer {
 
 <body>
 
+<div class="nav-wrap">
 <nav class="navbar">
     <a href="#" class="brand">
         <img src="ops-logo.png" alt="Orange Production Solutions" style="height:34px; width:auto;">
@@ -399,14 +491,25 @@ footer {
         <li><a href="#approach">Approach</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Services</a>
+    <a href="#work">Our Work</a>
+    <a href="#about">About</a>
+    <a href="#approach">Approach</a>
+    <a href="#contact">Contact</a>
+</div>
+</div>
 
 <!-- HERO -->
 <section class="section">
     <div class="container" style="margin-top: 32px;">
         <h1 class="reveal">Overlay Planning & Infrastructure Delivery.</h1>
-        <p class="reveal">
-            Construction planning and delivery for events where there is no second chance.
+        <p class="reveal" style="font-size: 1.15rem; font-weight: 500; color: var(--text-main); max-width: 65ch;">
+            Structural design and complex infrastructure seamlessly integrated into the master site, delivered with absolute cost certainty.
         </p>
         <div class="reveal" style="margin-top: 48px;">
             <a href="#work" class="btn">View our work</a>
@@ -425,16 +528,16 @@ footer {
             </div>
             <div class="reveal">
                 <h3>Overlay & Structure Design</h3>
-                <p>Technical structures, built for the venue and the moment.</p>
+                <p>Modeled to the structural level, not just block plans — clashes resolved before a vendor ever prices the job.</p>
 
                 <h3>Vendor Procurement</h3>
-                <p>Every partner, one plan.</p>
+                <p>Technical RFPs, competitive bids, open-book contracts — a clean gap between vendors and your event.</p>
 
                 <h3>Planning at Scale</h3>
-                <p>Budgets and high-level schedules, built to hold from day one.</p>
+                <p>One master schedule, one master budget — kept in sync automatically by a workflow system built in-house.</p>
 
                 <h3>Project Management</h3>
-                <p>Deadlines that hold.</p>
+                <p>Site delivery and special projects, run to the same standard.</p>
             </div>
         </div>
     </div>
@@ -443,71 +546,88 @@ footer {
 
 <!-- APPROACH (combined: problem first, then solution) -->
 <section class="section" id="approach">
-    <div class="container grid-2" style="margin-top: 32px;">
+    <div class="container methodology-grid" style="margin-top: 32px;">
 
-        <!-- LEFT: Where events fail, then accountability -->
-        <div class="reveal">
-            <h3 style="color:var(--text-main);">Where events fail</h3>
-            <ul class="checklist" style="margin-top:20px;">
-                <li>Divided responsibility — vendors operate alone, accountability disappears</li>
-                <li>Emerging complexity — constraints surface after budgets lock</li>
-                <li>Compressed decisions — small gaps become last-minute crises</li>
-            </ul>
-            <p style="margin-top:24px; color:var(--text-main); font-weight:500;">This is where OPS steps in.</p>
-
-            <h3 style="margin-top:48px; color:var(--text-main);">One team. Full accountability.</h3>
-            <p style="margin-top:16px;">
-                OPS connects vision to execution — vendors, timelines, and logistics — under a
-                single point of ownership.
-            </p>
-            <ul class="checklist" style="margin-top: 24px;">
-                <li>One point of contact</li>
-                <li>Vendors aligned to one plan</li>
-                <li>Problems caught early</li>
-                <li>You stay focused on the vision</li>
-            </ul>
+        <div class="reveal m-heading-left">
+            <h2>The Default<br>Outcome.</h2>
+        </div>
+        <div class="reveal m-heading-right">
+            <h2>The OPS<br>Methodology.</h2>
         </div>
 
-        <!-- RIGHT: Vision to Reality (the answer) -->
-        <div class="reveal">
-            <h2>From vision<br>to reality.</h2>
-            <div style="margin-top:40px;">
-                <div style="display:flex; gap:18px; margin-bottom:8px;">
-                    <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center;">
-                        <div style="width:32px; height:32px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem;">1</div>
-                        <div style="width:2px; flex:1; background:var(--border-color); margin-top:6px;"></div>
-                    </div>
-                    <div style="padding-bottom:28px;">
-                        <span class="eyebrow" style="margin-bottom:6px;">Understand</span>
-                        <h3 style="margin-bottom:6px;">We listen</h3>
-                        <p>We map constraints early, before they become problems.</p>
-                    </div>
-                </div>
-
-                <div style="display:flex; gap:18px; margin-bottom:8px;">
-                    <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center;">
-                        <div style="width:32px; height:32px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem;">2</div>
-                        <div style="width:2px; flex:1; background:var(--border-color); margin-top:6px;"></div>
-                    </div>
-                    <div style="padding-bottom:28px;">
-                        <span class="eyebrow" style="margin-bottom:6px;">Integrate</span>
-                        <h3 style="margin-bottom:6px;">We unify</h3>
-                        <p>Vendors, timelines, and decisions — one plan.</p>
-                    </div>
-                </div>
-
-                <div style="display:flex; gap:18px;">
-                    <div style="flex-shrink:0;">
-                        <div style="width:32px; height:32px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem;">3</div>
-                    </div>
-                    <div>
-                        <span class="eyebrow" style="margin-bottom:6px;">Deliver</span>
-                        <h3 style="margin-bottom:6px;">We execute</h3>
-                        <p>Hands-on through delivery. No surprises.</p>
-                    </div>
-                </div>
+        <!-- Pair 1 -->
+        <div class="reveal m-problem-1" style="display:flex; gap:18px; margin-top:40px;">
+            <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center;">
+                <div style="width:32px; height:32px; border-radius:50%; background:var(--bg-surface); border:1px solid var(--border-color); color:var(--text-dim); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem;">✕</div>
+                <div style="width:2px; flex:1; background:var(--border-color); margin-top:6px;"></div>
+            </div>
+            <div style="padding-bottom:28px;">
+                <span class="eyebrow" style="margin-bottom:6px; color:var(--text-dim);">Without Phase One</span>
+                <h3 style="margin-bottom:6px;">Conflicts Found On-Site</h3>
+                <p>Structural clashes surface after mobilization, when the fix costs real time and real money.</p>
             </div>
         </div>
+
+        <div class="reveal m-solution-1" style="display:flex; gap:18px; margin-top:40px;">
+            <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center;">
+                <div style="width:32px; height:32px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem;">1</div>
+                <div style="width:2px; flex:1; background:var(--border-color); margin-top:6px;"></div>
+            </div>
+            <div style="padding-bottom:28px;">
+                <span class="eyebrow" style="margin-bottom:6px;">Phase One</span>
+                <h3 style="margin-bottom:6px;">Engineer & Resolve</h3>
+                <p>We build the site in the model first. We map constraints, run clash detection, and solve structural realities before a single dollar is committed.</p>
+            </div>
+        </div>
+
+        <!-- Pair 2 -->
+        <div class="reveal m-problem-2" style="display:flex; gap:18px;">
+            <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center;">
+                <div style="width:32px; height:32px; border-radius:50%; background:var(--bg-surface); border:1px solid var(--border-color); color:var(--text-dim); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem;">✕</div>
+                <div style="width:2px; flex:1; background:var(--border-color); margin-top:6px;"></div>
+            </div>
+            <div style="padding-bottom:28px;">
+                <span class="eyebrow" style="margin-bottom:6px; color:var(--text-dim);">Without Phase Two</span>
+                <h3 style="margin-bottom:6px;">Budget Exposure Hidden</h3>
+                <p>Vague scopes and closed-book contracts leave cost overruns invisible until it's too late to act.</p>
+            </div>
+        </div>
+
+        <div class="reveal m-solution-2" style="display:flex; gap:18px;">
+            <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center;">
+                <div style="width:32px; height:32px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem;">2</div>
+                <div style="width:2px; flex:1; background:var(--border-color); margin-top:6px;"></div>
+            </div>
+            <div style="padding-bottom:28px;">
+                <span class="eyebrow" style="margin-bottom:6px;">Phase Two</span>
+                <h3 style="margin-bottom:6px;">Procure & Lock</h3>
+                <p>We go to market with technical RFPs vendors can actually price against. Vendors are secured through open-book contracting, and the master budget and schedule are locked.</p>
+            </div>
+        </div>
+
+        <!-- Pair 3 -->
+        <div class="reveal m-problem-3" style="display:flex; gap:18px;">
+            <div style="flex-shrink:0;">
+                <div style="width:32px; height:32px; border-radius:50%; background:var(--bg-surface); border:1px solid var(--border-color); color:var(--text-dim); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem;">✕</div>
+            </div>
+            <div>
+                <span class="eyebrow" style="margin-bottom:6px; color:var(--text-dim);">Without Phase Three</span>
+                <h3 style="margin-bottom:6px;">No One Owns the Outcome</h3>
+                <p>Vendors report to no one in particular, and the timeline drifts until someone is forced to absorb the cost.</p>
+            </div>
+        </div>
+
+        <div class="reveal m-solution-3" style="display:flex; gap:18px;">
+            <div style="flex-shrink:0;">
+                <div style="width:32px; height:32px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem;">3</div>
+            </div>
+            <div>
+                <span class="eyebrow" style="margin-bottom:6px;">Phase Three</span>
+                <h3 style="margin-bottom:6px;">Execute & Enforce</h3>
+                <p>One accountable point of contact on-site. We manage the burn schedule, enforce the timeline, and deliver the physical footprint exactly as modeled.</p>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -545,21 +665,21 @@ footer {
 
         <!-- Teaser grid linking to gated project library -->
         <div class="grid-3 reveal">
-            <div class="card">
+            <a href="project-library.html" class="card">
                 <span class="mono" style="font-size:0.7rem; color:var(--text-dim); text-transform:uppercase;">🔒 Locked</span>
                 <h3 style="margin-top:10px;">Motorsport</h3>
                 <p>Architectural services proposal, submitted in partnership with a global project delivery firm.</p>
-            </div>
-            <div class="card">
+            </a>
+            <a href="project-library.html" class="card">
                 <span class="mono" style="font-size:0.7rem; color:var(--text-dim); text-transform:uppercase;">🔒 Locked</span>
                 <h3 style="margin-top:10px;">Basketball</h3>
                 <p>Supporting infrastructure delivery role on a marquee national championship event.</p>
-            </div>
-            <div class="card">
+            </a>
+            <a href="project-library.html" class="card">
                 <span class="mono" style="font-size:0.7rem; color:var(--text-dim); text-transform:uppercase;">🔒 Locked</span>
                 <h3 style="margin-top:10px;">Soccer</h3>
                 <p>Planning and delivery across 5 of 17 tournament venues.</p>
-            </div>
+            </a>
         </div>
         <div class="reveal" style="margin-top:40px; text-align:center;">
             <a href="project-library.html" class="btn-secondary">View Full Project Library</a>
@@ -573,6 +693,11 @@ footer {
         <div class="reveal">
             <h2>About OPS</h2>
             <p style="color:var(--accent); font-weight:500; margin-top:-10px;">Founded by Jake Cone</p>
+
+            <div class="about-graphic" style="margin-top:32px; aspect-ratio:4/5; border:1px solid var(--border-color); background-color:var(--bg-surface); background-image: linear-gradient(var(--border-color) 1px, transparent 1px), linear-gradient(90deg, var(--border-color) 1px, transparent 1px); background-size: 28px 28px; position:relative; overflow:hidden;">
+                <div style="position:absolute; top:24px; left:24px; width:16px; height:16px; border-left:1px solid var(--accent); border-top:1px solid var(--accent);"></div>
+                <div style="position:absolute; bottom:24px; right:24px; width:16px; height:16px; border-right:1px solid var(--accent); border-bottom:1px solid var(--accent);"></div>
+            </div>
         </div>
         <div class="reveal">
             <p>
@@ -682,6 +807,19 @@ footer {
 </footer>
 
 <script>
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+navToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+});
+mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+    });
+});
+
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
